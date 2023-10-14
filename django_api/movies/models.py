@@ -24,7 +24,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
     description = models.TextField(_('description'), blank=True)
 
     class Meta:
-        db_table = "content\".\"genre"
+        db_table = "genre"
         ordering = ("name",)
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
@@ -40,7 +40,7 @@ class Person(UUIDMixin, TimeStampedMixin):
     )
 
     class Meta:
-        db_table = "content\".\"person"
+        db_table = "person"
         ordering = ("full_name",)
         verbose_name = 'Участник'
         verbose_name_plural = 'Участники'
@@ -86,7 +86,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     persons = models.ManyToManyField(Person, through='PersonFilmwork')
 
     class Meta:
-        db_table = "content\".\"film_work"
+        db_table = "film_work"
         ordering = ("-creation_date",)
         verbose_name = 'Кинопроизведение'
         verbose_name_plural = 'Кинопроизведения'
@@ -101,7 +101,7 @@ class GenreFilmwork(UUIDMixin):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "content\".\"genre_film_work"
+        db_table = "genre_film_work"
         constraints = [
             models.UniqueConstraint(
                 fields=['film_work', 'genre'],
@@ -133,7 +133,7 @@ class PersonFilmwork(UUIDMixin):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "content\".\"person_film_work"
+        db_table = "person_film_work"
         constraints = [
             models.UniqueConstraint(
                 fields=['film_work', 'person', 'role'],

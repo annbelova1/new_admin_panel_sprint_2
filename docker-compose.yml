@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  web:
+    build: ./django_api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django_api/:/usr/src/django_api/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+
+  db:
+    image: postgres:13
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=123qwe
+      - POSTGRES_DB=movies_database
+
+  # nginx:
+  #   build: ./nginx
+  #   # Подключаем статические и медиа файлы
+  #   volumes:
+  #     - static_volume:/home/django_api/web/static
+  #     - media_volume:/home/django_api/web/media
+  #   ports:
+  #     - 1337:80
+  #   depends_on:
+  #     - web
+
+
+volumes:
+  pg_data:
