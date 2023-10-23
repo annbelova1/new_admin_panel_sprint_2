@@ -138,3 +138,5 @@ dmypy.json
 .commands
 utilities
 .DS_Store
+
+**/static
