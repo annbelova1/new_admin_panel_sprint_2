@@ -19,6 +19,18 @@ services:
       - POSTGRES_PASSWORD=123qwe
       - POSTGRES_DB=movies_database
 
+  elasticsearch:
+    image: elasticsearch:8.6.2
+    environment:
+      - "discovery.type=single-node"
+      - "xpack.security.enabled=false"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    env_file:
+      - .env.dev
+    ports:
+      - "9200:9200"
+    restart: on-failure
   # nginx:
   #   build: ./nginx
   #   # Подключаем статические и медиа файлы
@@ -33,3 +45,4 @@ services:
 
 volumes:
   pg_data:
+  elasticsearch-data:
